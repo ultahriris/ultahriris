@@ -36,29 +36,19 @@ overflow-x:hidden;
 
 .container{
 width:100%;
-max-width:520px;
+max-width:650px;
 margin:auto;
 text-align:center;
 position:relative;
-z-index:1;
+z-index:2;
 }
 
 /* DESKTOP */
 
 @media (min-width:768px){
-
 .container{
-max-width:700px;
+max-width:800px;
 }
-
-}
-
-@media (min-width:1100px){
-
-.container{
-max-width:900px;
-}
-
 }
 
 /* STARS */
@@ -84,12 +74,12 @@ z-index:0;
 
 .gift-box{
 position:relative;
-width:clamp(120px,20vw,160px);
-height:clamp(120px,20vw,160px);
+width:clamp(120px,18vw,160px);
+height:clamp(120px,18vw,160px);
 margin:auto;
 cursor:pointer;
 transition:.3s;
-z-index:3;
+z-index:5;
 }
 
 .gift-box:hover{
@@ -156,12 +146,14 @@ left:0;
 width:100%;
 height:100%;
 pointer-events:none;
-z-index:2;
+z-index:3;
 }
 
 .photo{
 position:absolute;
-width:clamp(100px,20vw,180px);
+width:clamp(90px,18vw,180px);
+max-width:40vw;
+max-height:40vh;
 border-radius:14px;
 box-shadow:0 15px 35px rgba(0,0,0,0.45);
 opacity:0;
@@ -186,10 +178,12 @@ transform:scale(.3);
 opacity:0;
 transform:translateY(40px);
 transition:1s;
-max-height:75vh;
-overflow-y:auto;
 padding:20px;
-z-index:3;
+margin-top:40px;
+max-width:650px;
+margin-left:auto;
+margin-right:auto;
+z-index:4;
 position:relative;
 }
 
@@ -207,8 +201,9 @@ margin-bottom:15px;
 
 .message p{
 font-size:clamp(14px,2.5vw,17px);
-line-height:1.7;
-margin-bottom:25px;
+line-height:1.8;
+margin-bottom:20px;
+text-align:left;
 }
 
 /* VIDEO */
@@ -264,17 +259,6 @@ z-index:1;
 100%{transform:translateY(100vh)}
 }
 
-/* SCROLLBAR */
-
-.message::-webkit-scrollbar{
-width:6px;
-}
-
-.message::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,0.3);
-border-radius:10px;
-}
-
 </style>
 </head>
 
@@ -314,15 +298,18 @@ border-radius:10px;
 selamat bertambah usia yaww, ku doakan yg terbaik untukmu, semoga km sehat selalu, bahagia selalu dan selalu dikelilingi hal-hal baik yang memang pantas km dapatkan.🎊
 semoga hari ini dan seterusnya selalu menjadi hari yang menyenangkan, penuh tawa, penuh kebahagiaan dan penuh kasih dari orang-orang yang km sayangi. 😁
 </p>
+
 <p>
-  May every door you knock on, open. May every dream you carry, find its way.✨
+May every door you knock on, open. May every dream you carry, find its way.✨
 diusia km yg sdh tambah MENUA ini🤣, semoga km semakin tumbuh menjadi versi yg terbaik dalam dirimu yang paling damai dengan hidupmu, dengan pilihanmu dan dengan dirimu sendiri. take care of yourself, always.🤗
 </p>
-<p>makasih yaa untuk semuanya walaupun singkat ku sangat senang dan bahagia bisa mengenal km, tidak ada penyesalan atas pilihan ku. bisa menghabiskan waktu bersama km merupakan bagian yang paling aku suka and those memories will always have a special place in my heart😊
+
+<p>
+makasih yaa untuk semuanya walaupun singkat ku sangat senang dan bahagia bisa mengenal km, tidak ada penyesalan atas pilihan ku. bisa menghabiskan waktu bersama km merupakan bagian yang paling aku suka and those memories will always have a special place in my heart😊
 </p>
 
 <div class="video-frame">
-<video id="birthdayVideo" controls>
+<video id="birthdayVideo" autoplay loop muted playsinline controls>
 <source src="video.mp4" type="video/mp4">
 </video>
 </div>
@@ -374,14 +361,23 @@ function createPhotoAnimation(){
 
 let photos=document.querySelectorAll(".photo")
 
+let safeX = window.innerWidth * 0.75
+let safeY = window.innerHeight * 0.70
+
 photos.forEach((photo,index)=>{
 
 setTimeout(()=>{
 
-photo.style.left=(10+Math.random()*80)+"%"
-photo.style.top=(10+Math.random()*70)+"%"
+let x=Math.random()*safeX
+let y=Math.random()*safeY
 
-photo.style.setProperty("--rot",(Math.random()*40-20)+"deg")
+photo.style.left=x+"px"
+photo.style.top=y+"px"
+
+photo.style.setProperty(
+"--rot",
+(Math.random()*40-20)+"deg"
+)
 
 photo.classList.add("show")
 
@@ -397,9 +393,9 @@ photo.classList.add("hide")
 
 document.getElementById("message").classList.add("show")
 
-/* AUTOPLAY VIDEO */
-
-document.getElementById("birthdayVideo").play()
+let video=document.getElementById("birthdayVideo")
+video.muted=false
+video.play()
 
 },4500)
 
